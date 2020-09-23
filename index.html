@@ -1,0 +1,198 @@
+<html>
+	<head>
+		<!-- scripts-->
+		<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+		<script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>
+		<script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+		<script src="js/aframe-extras.min.js"></script>
+		<script src="js/aframe-text-geometry-component.min.js"></script>
+		<script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
+		<script src="https://rawgit.com/gmarty/aframe-ui-components/master/dist/aframe-ui-components.min.js"></script>
+		<script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
+		<script src="js/blinkteleport.js"></script>
+		<script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+
+		<script type="text/javascript">
+		function ejemplo(){ 
+		document.getElementById('nino').setAttribute('visible', 'false')
+		document.getElementById('boton').setAttribute('scale', '0 0 0')//invisible
+		//tiempo
+		setTimeout(function(){
+			document.getElementById('cubito').setAttribute('scale', '.8 .8 .8')
+			document.getElementById('pelota').setAttribute('position','1 2 -8.141')
+			document.getElementById('Cilindro').setAttribute('rotation','20 0 45')
+			}, 1000);
+			
+
+		
+		}
+		function ejemplo2(){ 
+		
+			document.getElementById('waypoint1').setAttribute('scale', '0 0 0') //invisible
+			document.getElementById('waypoint2').setAttribute('scale', '1 1 1') //visible
+			document.getElementById('waypoint3').setAttribute('scale', '1 1 1')
+		//tiempo
+		setTimeout(function(){
+			document.getElementById('cielo').setAttribute('color', '#E07B39')}, 240);
+
+		
+		}
+
+		function ejemplo4(){ 
+		
+		document.getElementById('waypoint1').setAttribute('scale', '1 1 1') //Visible
+		document.getElementById('waypoint2').setAttribute('scale', '0 0 0') //Invisible
+		document.getElementById('waypoint3').setAttribute('scale', '1 1 1')
+	//tiempo
+	setTimeout(function(){
+		document.getElementById('cielo').setAttribute('color', '#09006c')}, 240);
+
+	
+	}
+
+	function ejemplo5(){ 
+		document.getElementById('nino').setAttribute('visible', 'true')
+		document.getElementById('boton').setAttribute('scale', '1 1 1')//visible
+
+		document.getElementById('waypoint1').setAttribute('scale', '1 1 1') //Visible
+		document.getElementById('waypoint2').setAttribute('scale', '1 1 1') //Invisible
+		document.getElementById('waypoint3').setAttribute('scale', '0 0 0') //Invisible
+	//tiempo
+	setTimeout(function(){
+		document.getElementById('cielo').setAttribute('color', '#5DBCD2')
+		document.getElementById('cubito').setAttribute('scale', '1 1 1')
+		document.getElementById('pelota').setAttribute('position','0 1 -5')
+		document.getElementById('Cilindro').setAttribute('rotation','0 0 0')
+		}, 240);
+
+	
+	}
+		function ejemplo3(){ 
+			
+			stopAllAudios()
+			document.getElementById('boton2').setAttribute('scale', '0 0 0') //invisible
+			document.getElementById('audioPiam2').play()
+		//tiempo
+		}
+
+		function stopAllAudios() {
+var audio1 = document.querySelector(".audios1");
+var audio2 = document.querySelector(".audios2");
+
+
+audio1.pause();
+audio1.currentTime = 0;
+audio2.pause();
+audio2.currentTime = 0;
+
+
+}
+		
+
+		</script>
+	</head>
+
+	<body>
+		<a-scene>
+			<!-- Audio-->
+			<audio id="audioPiam1" class="audios1" autoplay loop>
+                <source src="bosque.mp3" type="audio/mp3" >
+			</audio> 
+
+			<audio id="audioPiam2" class="audios2">
+                <source src="PiamHistoriaM.mp3" type="audio/mp3">
+            </audio>
+			
+			
+			<a-assets>
+				<!-- aca van todos los assests-->
+				<a-asset-item id="ninito" src="models/Nino.glb"></a-asset-item>
+				<a-asset-item id="kultrun" src="models/Kultrun.glb"></a-asset-item>
+				<!-- imagen-->
+				<a-img id="imagenboton" src="images/Ui2_Atencion_Ui.png"></a-img>
+			</a-assets>
+			<a-entity id="Escena"> 
+			<a-box id="cubito"
+			position="-2.631 0.5 -3.929" rotation="0 45 0" color="#108200"></a-box>
+			<a-sphere id="pelota"position="0 1.25 -5" radius="1" color="#EF2D5E"></a-sphere>
+			<a-cylinder id= "Cilindro"position="2.818 1.025 -3.935" radius="0.3" height="1.5" color="#FFC65D"></a-cylinder>
+			<a-plane
+			    id="piso"
+				position="0 0 -4"
+				rotation="-90 0 0"
+				width="8"
+				height="8"
+				color="#0101f8"
+			></a-plane>
+			<a-sky color="#ECECEC"></a-sky>
+			<a-entity
+				id="nino"
+				gltf-model="#ninito"
+				position="0.05175 -0.00127 -2.21659"
+				animation-mixer="clip: Blink"
+			></a-entity>
+			<a-plane
+				id="boton"
+				src="#imagenboton"
+				position="1.05175 0.70127 -2.21659"
+				material="transparent: true"
+				data-interactive="true"
+				onclick="ejemplo()"
+			></a-plane>
+
+			<a-plane
+				id="boton2"
+				src="#imagenboton"
+				position="1.05175 1.70127 -2.21659"
+				material="transparent: true"
+				data-interactive="true"
+				onclick="ejemplo3()"
+			></a-plane>
+			<!-- WAYPOINT-->
+            <a-entity  
+				id="waypoint1"
+				data-interactive="true"
+				gltf-model="#kultrun"
+				position="-2.523 0.70127 -2.217"
+				animation-mixer="clip:Rotation"
+				class="clickable"
+				blink-teleportation="pos: -2.523 0 -2.217; hide: true; dur: 250"
+				onclick="ejemplo2()"
+			></a-entity>
+
+			<a-entity  
+				id="waypoint2"
+				data-interactive="true"
+				gltf-model="#kultrun"
+				position="0 0.70127 -5"
+				rotation= "90 0 0"
+				animation-mixer="clip:Rotation"
+				class="clickable"
+				blink-teleportation="pos: 0 0 -5; hide: true; dur: 250"
+				onclick="ejemplo4()"
+			></a-entity>
+
+			<a-entity  
+				id="waypoint3"
+				data-interactive="true"
+				gltf-model="#kultrun"
+				position="0 0.70127 1"
+				rotation= "0 90 0"
+				animation-mixer="clip:Rotation"
+				class="clickable"
+				blink-teleportation="pos: 0 0 1; hide: true; dur: 250"
+				onclick="ejemplo5()"
+			></a-entity>
+		</a-entity>
+			<!-- Cielooo-->
+
+			<a-sky id="cielo"color="#5DBCD2"></a-sky>
+			<a-entity id="camRig"  >
+				<a-camera id="cam" position="0 1 0" wasd-controls-enabled="false">
+				<a-cursor fuse="false" cursor-feedback></a-cursor>
+				</a-camera>
+				</a-entity>
+				
+		</a-scene>
+	</body>
+</html>
